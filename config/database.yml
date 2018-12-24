@@ -20,6 +20,8 @@ default: &default
 development:
   <<: *default
   database: sp_project_development
+  username: <%= ENV['db_user'] %>
+  password: <%= ENV['db_pass'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -49,6 +51,6 @@ test:
 #
 production:
   <<: *default
-  database: sp_project_production
-  username: sp-project
-  password: <%= ENV['SP-PROJECT_DATABASE_PASSWORD'] %>
+  database: sp_project_development
+  username: <%= ENV['db_user'] %>
+  password: <%= ENV['db_pass'] %>
