@@ -1,54 +1,43 @@
 class Api::PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
-  # GET /posts
-  # GET /posts.json
   def index
     @posts = Post.all
+    json_response(@posts)
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
   def show
+    json_response(@post)
   end
 
-  # POST /posts
-  # POST /posts.json
   def create
     @post = Post.new(post_params)
 
     if @post.save
-      render :show, status: :created
-      #, location: @post
+      json_response(@post)
     else
-      render json: @post.errors, status: :unprocessable_entity
+      json_response(@post.errors, status: :unprocessable_entity)
     end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
   def update
     if @post.update(post_params)
-      render :show, status: :ok
-      #, location: @post
+      json_response(@post)
     else
-      render json: @post.errors, status: :unprocessable_entity
+      json_response(@post.errors, status: :unprocessable_entity)
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     @post.destroy
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.permit(:title, :des, :picture)
     end
