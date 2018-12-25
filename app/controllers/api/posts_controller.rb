@@ -3,28 +3,30 @@ class Api::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    json_response(@posts)
+    json_post(@posts)
   end
 
   def show
-    json_response(@post)
+    json_post(@post)
   end
 
   def create
     @post = Post.new(post_params)
 
     if @post.save
-      json_response(@post)
+      json_post(@post, status: 201)
     else
-      json_response(@post.errors, status: :unprocessable_entity)
+      json_post(@post.errors, status: 422)
+      #:unprocessable_entity
     end
   end
 
   def update
     if @post.update(post_params)
-      json_response(@post)
+      # json_post(@post)
+      head :no_content
     else
-      json_response(@post.errors, status: :unprocessable_entity)
+      json_post(@post.errors, status: 204)
     end
   end
 

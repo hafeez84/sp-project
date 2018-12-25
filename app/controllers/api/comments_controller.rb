@@ -2,29 +2,29 @@ class Api::CommentsController < ApplicationController
   before_action :set_post
   before_action :set_post_comment, only: [:show, :update, :destroy]
 
-  # GET /todos/:todo_id/items
+  # GET /api/posts/:post_id/comments
   def index
-    json_response(@post.comments)
+    json_comment(@post.comments)
   end
 
-  # GET /todos/:todo_id/items/:id
+  # GET /api/posts/:post_id/comments/:id
   def show
-    json_response(@post)
+    json_comment(@post)
   end
 
-  # POST /todos/:todo_id/items
+  # POST /api/posts/:post_id/comments
   def create
     @post.comments.create!(comment_params)
-    json_response(@post, :created)
+    json_comment(@post, :created)
   end
 
-  # PUT /todos/:todo_id/items/:id
+  # PUT /api/posts/:post_id/comments/:id
   def update
     @post.update(comment_params)
     head :no_content
   end
 
-  # DELETE /todos/:todo_id/items/:id
+  # DELETE /api/posts/:post_id/comments/:id
   def destroy
     @post.destroy
     head :no_content

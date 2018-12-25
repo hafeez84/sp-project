@@ -26,3 +26,4 @@
 /config/application.yml
 /public/uploads/*
 /task.txt
+coverage
