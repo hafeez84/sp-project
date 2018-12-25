@@ -1,8 +1,20 @@
 class Api::TriangleController < ApplicationController
   before_action :t_params
+
+  def index
+    render json: {
+      status: 200,
+      message: "Please send 3 side of triange as params",
+    }.to_json
+  end
+
   def type
     sides = t_params.values
-    if sides[0] + sides[1] < sides[2] || sides[1] + sides[2] < sides[0] || sides[0] + sides[2] < sides[1]
+    a = sides[0].to_i
+    b = sides[1].to_i
+    c = sides[2].to_i
+
+    unless ( c < (a+b) && ( b < (a+c)) && ( a < (b+c)) )
       type = :Invalid
     else
       type = case sides.uniq.length
