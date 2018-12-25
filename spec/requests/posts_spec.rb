@@ -72,8 +72,7 @@ RSpec.describe 'Posts API', type: :request do
       end
 
       it 'returns a validation failure message' do
-        expect(response.body)
-          .to match(/Validation failed: des can't be blank/)
+        expect(json['des']).to match(["can't be blank"])
       end
     end
   end

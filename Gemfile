@@ -8,10 +8,11 @@ gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'rack-cors'
 gem 'figaro'
 gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
-gem 'rack-cors'
+gem 'rubocop-rspec'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

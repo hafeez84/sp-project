@@ -25,5 +25,5 @@
 # Ignore application configuration
 /config/application.yml
 /public/uploads/*
-/task.txt
+task.txt
 coverage

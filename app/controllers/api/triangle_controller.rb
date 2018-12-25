@@ -9,21 +9,17 @@ class Api::TriangleController < ApplicationController
   end
 
   def type
-    sides = t_params.values
-    a = sides[0].to_i
-    b = sides[1].to_i
-    c = sides[2].to_i
-
-    unless ( c < (a+b) && ( b < (a+c)) && ( a < (b+c)) )
+    sides = t_params.values.map { |e| e.to_i  }
+    unless ( sides[2] < ( sides[0] + sides[1] ) && ( sides[1] < ( sides[0] + sides[2] )) && ( sides[0] < ( sides[1] + sides[2] )) )
       type = :Invalid
     else
       type = case sides.uniq.length
-          when 1 then :equilateral
-          when 2 then :isosceles
-          when 3 then :scalene
+          when 1 then :Equilateral
+          when 2 then :Isosceles
+          when 3 then :Scalene
       end
     end
-    render json: {status: "SUCCESS", message:"#{type}"}, status: :ok
+    render json: {status: "SUCCESS", type: type }, status: :ok
   end
 
   private

@@ -14,13 +14,13 @@ class Api::CommentsController < ApplicationController
 
   # POST /api/posts/:post_id/comments
   def create
-    @post.comments.create!(comment_params)
-    json_comment(@post, :created)
+    @post.comments.create!(set_params)
+    json_comment(@post.comments.last, :created)
   end
 
   # PUT /api/posts/:post_id/comments/:id
   def update
-    @post.update(comment_params)
+    @post.update(set_params)
     head :no_content
   end
 
@@ -32,7 +32,7 @@ class Api::CommentsController < ApplicationController
 
   private
 
-  def comment_params
+  def set_params
     params.permit(:content)
   end
 
