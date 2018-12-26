@@ -64,15 +64,27 @@ RSpec.describe 'Posts API', type: :request do
       end
     end
 
-    context 'when the request is invalid' do
-      before { post '/api/posts', params: { title: 'foo' } }
+    context 'when des param is missing' do
+      before { post '/api/posts', params: { title: 'fooo' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
+    end
 
-      it 'returns a validation failure message' do
-        expect(json['des']).to match(["can't be blank"])
+    context 'when title length is not valid' do
+      before { post '/api/posts', params: { title: 'fo', des: 'this is description' } }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+    end
+
+    context 'when des length is not valid' do
+      before { post '/api/posts', params: { title: 'Valid title', des: 'ba' } }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
       end
     end
   end

@@ -63,16 +63,15 @@ RSpec.describe 'Comments API' do
 
   # Test suite for Post /posts/:post_id/comments
   describe 'POST /api/posts/:post_id/comments' do
-    let(:valid_attributes) { { content: 'Mozart' } }
+    let!(:valid_attributes) { { content: 'Mozart' } }
+    context "when request attr is valid" do
+      before {post "/api/posts/#{post_id}/comments", params: valid_attributes}
 
-    context 'when request attributes are valid' do
-      before { post "/api/posts/#{post_id}/comments", params: valid_attributes }
-
-      it 'returns status code 201' do
+      it "should returns status code 201" do
         expect(response).to have_http_status(201)
       end
     end
-
+    # FIXME test with invalid param length
     context 'when an invalid request' do
       before { post "/posts/#{post_id}/comments", params: {} }
 
