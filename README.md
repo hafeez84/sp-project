@@ -13,5 +13,5 @@ $ rails routes <br/>
 And finally  <br/>
 $ rails s <br/>
 
-- Test
+- Test <br/>
 $ rspec
