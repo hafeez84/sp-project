@@ -47,8 +47,16 @@ RSpec.describe "Triangle API", type: :request do
       it "should return invalid type" do
         expect(json['type']).to eq('Invalid')
       end
-
     end
+
+    context "when the request is invalid" do
+      let(:inval) {{ a:10, b:7, c: "a" }}
+      before {get '/api/triangle/type', params: inval }
+      it "should return invalid type" do
+        expect(response).to have_http_status(422)
+      end
+    end
+
   end
 
 

@@ -9,7 +9,13 @@ class Api::TriangleController < ApplicationController
   end
 
   def type
-    sides = t_params.values.map { |e| e.to_i  }
+    begin
+      sides = t_params.values.map { |e| e.to_i  }
+      raise "Please send valid sides for Triangle !" if sides.include? 0 # it'll result zero if there is none number value and zero
+    rescue Exception => e
+      render json: {status: 422, error: e.message}, status: 422
+      return
+    end
     unless ( sides[2] < ( sides[0] + sides[1] ) && ( sides[1] < ( sides[0] + sides[2] )) && ( sides[0] < ( sides[1] + sides[2] )) )
       type = :Invalid
     else
