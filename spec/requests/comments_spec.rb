@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Comments API' do
+RSpec.describe 'Comments API', :type => :request do
   # Initialize the test data
   let!(:post) { create(:post) }
   let!(:comments) { create_list(:comment, 20, post_id: post.id) }
@@ -61,29 +61,6 @@ RSpec.describe 'Comments API' do
     end
   end
 
-  # Test suite for Post /posts/:post_id/comments
-  describe 'POST /api/posts/:post_id/comments' do
-
-    # FIXME
-    context "when request attr is valid" do
-      # a = FactoryBot.attributes_for :comment
-      # puts a
-      # before {post "/posts/#{post_id}/comments",a }
-      before { post '/api/posts', params: { content: 'foobar' } }
-      it "should returns status code 201" do
-        expect(response).to have_http_status(201)
-      end
-    end
-    # test with invalid param length
-    # context 'when an invalid request' do
-    #   before { post "/posts/#{post_id}/comments", params: {} }
-    #
-    #   it 'returns status code 422' do
-    #     expect(response).to have_http_status(422)
-    #   end
-    #
-    # end
-  end
 
   # Test suite for PUT /posts/:post_id/comments/:id
   describe 'PUT /api/posts/:post_id/comments/:id' do
@@ -122,5 +99,35 @@ RSpec.describe 'Comments API' do
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
     end
+  end
+
+end
+
+
+RSpec.describe 'Comments API', :type => :request do
+  # Initialize the test data
+  let!(:posts) { create_list(:post, 10) }
+  let(:post_id) { posts.first.id }
+
+    # Test suite for Post /posts/:post_id/comments
+  describe 'POST /api/posts/:post_id/comments' do
+
+    context "when request attr is valid" do
+      before { post "/api/posts/#{post_id}/comments", params: {content: 'foobar'} }
+
+      it "should returns status code 201" do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    # test with invalid param length
+    context 'when an invalid request' do
+      before { post "/api/posts/#{post_id}/comments", params: {} }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+    end
+
   end
 end
