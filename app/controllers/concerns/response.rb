@@ -1,4 +1,5 @@
 module Response
+  
   def json_post(object, status = :ok)
     unless status.is_a? Hash
       render json: object.as_json(include: :comments), status: status

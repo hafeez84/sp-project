@@ -26,7 +26,7 @@ class Api::PostsController < ApplicationController
       # json_post(@post)
       head :no_content
     else
-      json_post(@post.errors, status: 204)
+      json_post(@post.errors, status: 422)
     end
   end
 
