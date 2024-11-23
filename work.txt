@@ -1,1 +1,1 @@
-shouldWorkNow
+print("shouldWorkNow")
